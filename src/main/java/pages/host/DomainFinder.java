@@ -26,7 +26,6 @@ import static com.codeborne.selenide.Selenide.*;
  *
  * <p>Need to pay attention, that domains are selected and stored inside the list – domainSelected. This is done for the sake of
  * future testing, because probably future test could include not one, but several domain selected.
- *
  */
 public class DomainFinder {
 
@@ -56,8 +55,9 @@ public class DomainFinder {
     public DomainFinder acceptCookiesIfNeeded() {
         try {
             cookiesAcceptionButton.should(Condition.visible, Duration.ofMillis(3000)).click();
-        } finally {
-            LOGGER.warn("There was no cookies to accept.");
+            LOGGER.info("Cookies were accepted.");
+        } catch (Exception e) {
+            LOGGER.warn("There was no cookies pop up to accept.");
         }
         return this;
     }
