@@ -36,7 +36,7 @@ public class DomainFinder {
             cookiesAcceptionButton = $(byId("hgr-cookie_consent-accept_all_btn")),
             domainInputField = $(byXpath("//input[contains(@class,'header__input')]")),
             domainSearchButton = $(byId("dc-button")),
-            searchLoaderLocator = $(byXpath("//*[@id=\"dc-loader\"]")),
+            searchLoaderLocator = $(byId("dc-loader")),
             domainSelectionLoaderLocator = $(byXpath("//span[contains(text(),'Loading')]")),
             cartOfSelectedDomain = $(byXpath("//a[@href='/cart']")),
             selectedCurrency = $(byXpath("//div[contains(@class, 'header-currency-switcher__currency')]"));
