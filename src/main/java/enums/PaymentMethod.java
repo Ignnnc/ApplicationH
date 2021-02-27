@@ -7,10 +7,10 @@ import static com.codeborne.selenide.Selenide.$;
 
 public enum PaymentMethod {
 
-    PAYPAL("contains(@href, 'braintree_paypal')"),
-    CARDS("contains(@href, 'processout') and not(contains(@href, 'coinpayments'))"),
-    CRYPTO("contains(@href, 'processout_apm.coinpayments')"),
-    GOOGLE_PAY("contains(@href, 'checkout.googlepay')");
+    PAYPAL("'braintree_paypal'"),
+    CARDS("'processout') and not(contains(@href, 'coinpayments')"),
+    CRYPTO("'processout_apm.coinpayments'"),
+    GOOGLE_PAY("'checkout.googlepay'");
 
     final String locContains;
 
@@ -19,6 +19,6 @@ public enum PaymentMethod {
     }
 
     public SelenideElement getLocator() {
-        return $(byXpath("//a[" + locContains + "]"));
+        return $(byXpath("//a[contains(@href," + locContains + ")]"));
     }
 }

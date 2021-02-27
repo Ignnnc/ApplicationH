@@ -18,6 +18,15 @@ import org.apache.logging.log4j.Logger;
 import static com.codeborne.selenide.Selectors.*;
 import static com.codeborne.selenide.Selenide.*;
 
+/**
+ * {@link DomainFinder} class is  a page orientated model. The main target of this class is to implement
+ * locators and methods for domain selection. Class also includes several methods for page loading validation. For example,
+ * there is a need to use some 'waiters' after licking search button (loading bar appears). The same happens, while selecting
+ * domain (validating domain availability).
+ *
+ * <p>Need to pay attention, that domains are selected and stored inside the list – domainSelected. This is done for the sake of
+ * future testing, because probably future test could include not one, but several domain selected.
+ */
 public class DomainFinder {
 
     private final Logger LOGGER = LogManager.getLogger(this.getClass().getName());
@@ -26,7 +35,7 @@ public class DomainFinder {
             cookiesAcceptionButton = $(byId("hgr-cookie_consent-accept_all_btn")),
             domainInputField = $(byXpath("//input[contains(@class,'header__input')]")),
             domainSearchButton = $(byId("dc-button")),
-            searchLoaderLocator = $(byXpath("//*[@id=\"dc-loader\"]")),
+            searchLoaderLocator = $(byId("dc-loader")),
             domainSelectionLoaderLocator = $(byXpath("//span[contains(text(),'Loading')]")),
             cartOfSelectedDomain = $(byXpath("//a[@href='/cart']")),
             selectedCurrency = $(byXpath("//div[contains(@class, 'header-currency-switcher__currency')]"));
@@ -46,8 +55,9 @@ public class DomainFinder {
     public DomainFinder acceptCookiesIfNeeded() {
         try {
             cookiesAcceptionButton.should(Condition.visible, Duration.ofMillis(3000)).click();
-        } finally {
-            LOGGER.warn("There was no cookies to accept.");
+            LOGGER.info("Cookies were accepted.");
+        } catch (Exception e) {
+            LOGGER.warn("There was no cookies pop up to accept.");
         }
         return this;
     }
@@ -121,7 +131,7 @@ public class DomainFinder {
      */
     public DomainFinder accessCartViaAnySelection() {
         if (domainSelected.size() == 0) {
-            Assertions.fail("None of domain were selected. Impossible to access cart using selected domain");
+            Assertions.fail("None of domain were selected. Impossible to access cart without any domain selected.");
         }
         LOGGER.info("Accessing cart via selected domain");
         cartOfSelectedDomain.scrollIntoView(false).click();

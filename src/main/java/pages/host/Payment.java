@@ -12,6 +12,12 @@ import java.time.Duration;
 import static com.codeborne.selenide.Selectors.byXpath;
 import static com.codeborne.selenide.Selenide.$;
 
+/**
+ * {@link Payment} class is  a page orientated model. The main target of this class is to have methods and locators for
+ * payments page opening and payment methods existence validation.
+ *
+ * <p>Payment method has separate enum class, that is associated with specific locators (enums/PaymentMethod.java).
+ */
 public class Payment {
 
     SelenideElement header = $(byXpath("//h2[contains(text(),'Choose a Payment Method')]"));
