@@ -36,12 +36,10 @@ public class Cart {
     private SelenideElement checkoutButton = $(byId("cart-checkout-btn"));
 
     /** Selectors, presented below, are closely related to locators of domainsForRegistration/ domainsForSummary. Selectors
-     will be used to extend element collection.*/
+     will be used to extend them.*/
     private By
-            domainRegistrationName = byXpath(".//div[@ng-bind='item.unicodedDomainName']"),
-            domainRegistrationPrice = byXpath(".//span[contains(@ng-bind,'subtotal_without_icann')]"),
-            domainSummaryName = byXpath(".//span[@ng-bind='item.unicodedDomainName']"),
-            domainSummaryPrice = byXpath(".//span[contains(@ng-bind, 'item.subtotal')]");
+            domainNameLoc = byXpath(".//*[@ng-bind='item.unicodedDomainName']"),
+            domainPriceLoc = byXpath(".//*[contains(@ng-bind,'subtotal')]");
 
     public Cart pressCheckoutButton() {
         LOGGER.info("Pressing checkout button.");
@@ -57,10 +55,7 @@ public class Cart {
      */
     public Cart readAndValidateRegisteredDomains(DomainFinder domainFinder) {
         LOGGER.info("Validating registered domains");
-        validationTemplate(domainFinder, "Registered domains", domainsForRegistration,
-                domainRegistrationName,
-                domainRegistrationPrice
-        );
+        validationTemplate(domainFinder, "Registered domains", domainsForRegistration);
         return this;
     }
 
@@ -72,10 +67,7 @@ public class Cart {
      */
     public Cart readAndValidateDomainsInSummary(DomainFinder domainFinder) {
         LOGGER.info("Validating domains in summary");
-        validationTemplate(domainFinder, "Domains in summary", domainsForSummary,
-                domainSummaryName,
-                domainSummaryPrice
-        );
+        validationTemplate(domainFinder, "Domains in summary", domainsForSummary);
         return this;
     }
 
@@ -85,19 +77,17 @@ public class Cart {
      * @param domainFinder    object, that contains selected domains.
      * @param whatIsValidated name of validation type.
      * @param domainsInCart   collection of cart locators for domain validation.
-     * @param nameLoc         selenide locator for domain name in cart.
-     * @param priceLoc        selenide locator for domain price in cart.
      * @return
      */
-    public Cart validationTemplate(DomainFinder domainFinder, String whatIsValidated, ElementsCollection domainsInCart, By nameLoc, By priceLoc) {
+    public Cart validationTemplate(DomainFinder domainFinder, String whatIsValidated, ElementsCollection domainsInCart) {
         // Preparing selected domain strings
         List<String> allDomains = Domain.toString(domainFinder.getDomainSelected());
 
         // Validating if all the existing domains in cart were selected in domain finder page.
         String regResult, regName, regPriceFull;
         for (SelenideElement singleDomain : domainsInCart) {
-            regName = singleDomain.find(nameLoc).getText();
-            regPriceFull = singleDomain.find(priceLoc).getText();
+            regName = singleDomain.find(domainNameLoc).getText();
+            regPriceFull = singleDomain.find(domainPriceLoc).getText();
             regResult = regName + " " + regPriceFull;
             Assertions.assertTrue(allDomains.contains(regResult),
                     "Cart (" + whatIsValidated + ") contains domain '" + regResult +
