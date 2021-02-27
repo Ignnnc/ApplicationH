@@ -131,7 +131,7 @@ public class DomainFinder {
      */
     public DomainFinder accessCartViaAnySelection() {
         if (domainSelected.size() == 0) {
-            Assertions.fail("None of domain were selected. Impossible to access cart using selected domain");
+            Assertions.fail("None of domain were selected. Impossible to access cart without any domain selected.");
         }
         LOGGER.info("Accessing cart via selected domain");
         cartOfSelectedDomain.scrollIntoView(false).click();
