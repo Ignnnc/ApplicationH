@@ -15,18 +15,27 @@ import static com.codeborne.selenide.Selectors.byXpath;
 import static com.codeborne.selenide.Selenide.$;
 import static com.codeborne.selenide.Selenide.$$;
 
+/**
+ * {@link Cart} class is  a page orientated model. The main target of this class is to implement
+ * locators and methods for selected domain validation in cart perspective. Methods are intended to validate
+ * domain existence and data validation in both registration and summary sides.
+ *
+ * <p>Class is used to ensure, that there are no additional domains in cart, and that there are no domains
+ * that were not selected in domain finder page.
+ *
+ */
 public class Cart {
 
     private final Logger LOGGER = LogManager.getLogger(this.getClass().getName());
 
-    /* Element collections stores all available domain locators in different parts of cart page (registration / summary).
+    /** Element collections stores all available domain locators in different parts of cart page (registration / summary).
     Ex. several registered domains / several domains in summary.*/
     private ElementsCollection
             domainsForRegistration = $$(byXpath("//div[contains(@ng-show, 'ItemCloudflare')]")),
             domainsForSummary = $$(byXpath("//span[@ng-repeat='item in cart.items']"));
     private SelenideElement checkoutButton = $(byId("cart-checkout-btn"));
 
-    /* Selectors, presented below, are closely related to locators of domainsForRegistration/ domainsForSummary. Selectors
+    /** Selectors, presented below, are closely related to locators of domainsForRegistration/ domainsForSummary. Selectors
      will be used to extend element collection.*/
     private By
             domainRegistrationName = byXpath(".//div[@ng-bind='item.unicodedDomainName']"),

@@ -12,6 +12,12 @@ import static com.codeborne.selenide.Selectors.byId;
 import static com.codeborne.selenide.Selenide.$;
 import static com.codeborne.selenide.Selenide.open;
 
+
+/**
+ * {@link EmailExtraction} class is used for extracting valid email from third party source - temp-email. This technique
+ * is useful, because it allows to generate valid test data, for example – for creating accounts. Since email is valid, it is
+ * easy to automate email verification, so that the test plans could be extended easily.
+ */
 public class EmailExtraction {
     private final Logger logger = LogManager.getLogger(this.getClass().getName());
     private SelenideElement emailField = $(byId("mail"));

@@ -18,6 +18,16 @@ import org.apache.logging.log4j.Logger;
 import static com.codeborne.selenide.Selectors.*;
 import static com.codeborne.selenide.Selenide.*;
 
+/**
+ * {@link DomainFinder} class is  a page orientated model. The main target of this class is to implement
+ * locators and methods for domain selection. Class also includes several methods for page loading validation. For example,
+ * there is a need to use some 'waiters' after licking search button (loading bar appears). The same happens, while selecting
+ * domain (validating domain availability).
+ *
+ * <p>Need to pay attention, that domains are selected and stored inside the list – domainSelected. This is done for the sake of
+ * future testing, because probably future test could include not one, but several domain selected.
+ *
+ */
 public class DomainFinder {
 
     private final Logger LOGGER = LogManager.getLogger(this.getClass().getName());

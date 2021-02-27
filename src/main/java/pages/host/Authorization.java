@@ -12,6 +12,12 @@ import static com.codeborne.selenide.Selectors.byId;
 import static com.codeborne.selenide.Selectors.byXpath;
 import static com.codeborne.selenide.Selenide.$;
 
+
+/**
+ * {@link Authorization} class is  a page orientated model. The main target of this class is to implement
+ * locators and methods for 'signing up' automation.
+ *
+ */
 public class Authorization {
 
     private final Logger LOGGER = LogManager.getLogger(this.getClass().getName());
